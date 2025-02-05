@@ -5,18 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מה הלוז?</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
+            max-width: 100%;
+            padding: 50px;
             background: #1a1a1a;
             color: #ffffff;
+            min-height: 100vh;
+            padding-bottom: 60px; /* Space for footer */
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         textarea {
             width: 100%;
-            height: 300px;
+            min-height: 50vh;
+            max-height: 60vh;
             padding: 12px;
             margin: 10px 0;
             border: 2px solid #404040;
@@ -25,6 +40,16 @@
             direction: rtl;
             background: #2d2d2d;
             color: #ffffff;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 480px) {
+            textarea {
+                font-size: 14px;
+                padding: 8px;
+                min-height: 150px;
+            }
         }
 
         button {
@@ -35,6 +60,10 @@
             border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
         }
 
         button:hover {
@@ -46,6 +75,15 @@
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
+        }
+
+        .instructions h2 {
+            margin-bottom: 10px;
+        }
+
+        .instructions p {
+            margin-bottom: 8px;
+            line-height: 1.4;
         }
 
         #preview {
@@ -61,35 +99,54 @@
         }
 
         .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        font-size: 12px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            padding: 10px;
+            background: #1a1a1a;
         }
-        
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .instructions {
+                padding: 10px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="instructions">
-        <h2>מה הלו"ז? - מחולל הלוזים📅✏️🪖</h2>
-        <p>הכניסו את האירועים שלכם - כל אירוע בשורה חדשה בפורמט הבא:</p>
-        <p>שעה שם האירוע</p>
-    </div>
-    
-    <textarea id="eventInput" placeholder="הכנס את האירועים כאן, לדוגמא:
+    <div class="container">
+        <div class="instructions">
+            <h2>מה הלו"ז? - מחולל הלוזים📅✏️🪖</h2>
+            <p>הכניסו את האירועים שלכם - כל אירוע בשורה חדשה בפורמט הבא:</p>
+            <p>שעה שם האירוע</p>
+        </div>
+        
+        <textarea id="eventInput" placeholder="הכנס את האירועים כאן, לדוגמא:
 8:30 קפה של בוקר
 9:00 פגישת צוות
 10:30 תדריך"></textarea>
-    
-    <button onclick="parseEvents()">צור אירועים</button>
-    
-    <div id="preview"></div>
+        
+        <button onclick="parseEvents()">צור אירועים</button>
+        
+        <div id="preview"></div>
+    </div>
 
     <div class="footer">
         <p>נוצר ב❤️ לפלוגת סייפן</p>
     </div>
+
     <script>
         function parseEvents() {
             const input = document.getElementById('eventInput').value;
